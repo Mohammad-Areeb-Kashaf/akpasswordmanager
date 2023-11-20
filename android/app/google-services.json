@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1075592177456",
+    "project_id": "ak-password-manager",
+    "storage_bucket": "ak-password-manager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075592177456:android:cffccc642ee5e5d045caf5",
+        "android_client_info": {
+          "package_name": "com.akdeveloper.akpasswordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075592177456-426bcnfl0sfng1im59uv510svncimkfq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl8CazKTbbErBFoJLHNXcts-lq5B8XjX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075592177456-426bcnfl0sfng1im59uv510svncimkfq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

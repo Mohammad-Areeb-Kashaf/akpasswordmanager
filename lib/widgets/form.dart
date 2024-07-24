@@ -35,15 +35,25 @@ class MyForm {
       const SizedBox(
         height: 15,
       ),
-      checkErrorMessage(errormessage) ? errormessage : const SizedBox(height: 0,),
-      checkErrorMessage(errormessage) ? const SizedBox(height: 15,) : const SizedBox(height: 0,),
-      RaisedButton(
+      checkErrorMessage(errormessage)
+          ? errormessage
+          : const SizedBox(
+              height: 0,
+            ),
+      checkErrorMessage(errormessage)
+          ? const SizedBox(
+              height: 15,
+            )
+          : const SizedBox(
+              height: 0,
+            ),
+      MaterialButton(
         onPressed: onPressed,
+        color: Colors.grey.shade800,
         child: Text(
           buttonName,
-          textScaleFactor: 2,
+          style: const TextStyle(fontSize: 24),
         ),
-        color: Colors.grey.shade800,
       ),
       const SizedBox(
         height: 20,

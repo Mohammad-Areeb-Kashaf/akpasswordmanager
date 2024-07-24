@@ -5,7 +5,8 @@ import '../constants.dart';
 
 class ViewPassword extends StatefulWidget {
   ViewPassword(
-      {this.label,
+      {Key? key,
+      this.label,
       this.username,
       this.email,
       this.password,
@@ -16,7 +17,8 @@ class ViewPassword extends StatefulWidget {
       this.emailController,
       this.usernameController,
       this.passwordController,
-      this.noteController});
+      this.noteController})
+      : super(key: key);
   final password;
   final email;
   final note;
@@ -147,7 +149,7 @@ class _ViewPasswordState extends State<ViewPassword> {
                     height: 0,
                   ),
             widget.isEnabled
-                ? RaisedButton(
+                ? MaterialButton(
                     onPressed: () {
                       PasswordManager().updatePassword(
                           label: widget.labelController.text,
@@ -162,11 +164,11 @@ class _ViewPasswordState extends State<ViewPassword> {
                         widget.label = widget.labelController.text;
                       });
                     },
+                    color: Colors.grey.shade800,
                     child: const Text(
                       'Update',
-                      textScaleFactor: 2,
+                      style: TextStyle(fontSize: 24),
                     ),
-                    color: Colors.grey.shade800,
                   )
                 : const SizedBox(
                     height: 0,

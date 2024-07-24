@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ak_password_manager/screens/view_password.dart';
 import 'package:ak_password_manager/utilities/encryption.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +15,6 @@ class PasswordManager {
   var encryption = EncryptionPassword();
 
   getPasswords(userUid) {
-
     return StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('${userUid}pass').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -26,7 +23,7 @@ class PasswordManager {
                 child: CircularProgressIndicator(
               color: Color(0xFF616161),
             ));
-          } else if(snapshot.hasData) {
+          } else if (snapshot.hasData) {
             try {
               return ListView(
                 scrollDirection: Axis.vertical,
@@ -40,16 +37,37 @@ class PasswordManager {
                   var password = data['password_item']['password'];
                   var note = data['password_item']['note'];
                   var id = data['password_item']['id'];
-                  var decryptedLabel = encryption.decryptPassword(label, encrypter);
-                  var decryptedUsername = encryption.decryptPassword(username, encrypter);
-                  var decryptedEmail = encryption.decryptPassword(email, encrypter);
-                  var decryptedPassword = encryption.decryptPassword(password, encrypter);
-                  var decryptedNote = encryption.decryptPassword(note, encrypter);
+                  var decryptedLabel =
+                      encryption.decryptPassword(label, encrypter);
+                  var decryptedUsername =
+                      encryption.decryptPassword(username, encrypter);
+                  var decryptedEmail =
+                      encryption.decryptPassword(email, encrypter);
+                  var decryptedPassword =
+                      encryption.decryptPassword(password, encrypter);
+                  var decryptedNote =
+                      encryption.decryptPassword(note, encrypter);
                   return ListTile(
                     title: Text(decryptedLabel),
                     subtitle: Text(decryptedEmail),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ViewPassword(label: decryptedLabel, username: decryptedUsername, email: decryptedEmail, password: decryptedPassword, note: decryptedNote, id: id, userUid: userUid, labelController: labelController, usernameController: usernameController, emailController: emailController, passwordController: passwordController, noteController: noteController,)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ViewPassword(
+                                    label: decryptedLabel,
+                                    username: decryptedUsername,
+                                    email: decryptedEmail,
+                                    password: decryptedPassword,
+                                    note: decryptedNote,
+                                    id: id,
+                                    userUid: userUid,
+                                    labelController: labelController,
+                                    usernameController: usernameController,
+                                    emailController: emailController,
+                                    passwordController: passwordController,
+                                    noteController: noteController,
+                                  )));
                     },
                   );
                 }).toList(),
@@ -74,10 +92,13 @@ class PasswordManager {
       [note]) async {
     var id = await getId(userUid);
     var encryptedLabel = encryption.encryptPassword(labelName, encrypter);
-    var encryptedUsername = encryption.encryptPassword(getText(userName) ? userName : 'null', encrypter);
+    var encryptedUsername = encryption.encryptPassword(
+        getText(userName) ? userName : 'null', encrypter);
     var encryptedEmail = encryption.encryptPassword(email, encrypter);
-    var encryptedPassword = encryption.encryptPassword(getText(password) ? password : 'null', encrypter);
-    var encryptedNote = encryption.encryptPassword(getText(note) ? note : 'null', encrypter);
+    var encryptedPassword = encryption.encryptPassword(
+        getText(password) ? password : 'null', encrypter);
+    var encryptedNote =
+        encryption.encryptPassword(getText(note) ? note : 'null', encrypter);
 
     var data = {
       'password_item': {
@@ -112,22 +133,30 @@ class PasswordManager {
       return 0;
     }
   }
+
   deletePassword({required id, required userUid}) async {
     var data = _firestore.doc('${userUid}pass/${userUid + id.toString()}');
     await data.delete();
   }
+
   setId({required id, required userUid}) async {
     var data = {
       'id': id,
     };
     await _firestore.doc('$userUid/$userUid').set(data);
   }
+
   updatePassword({label, username, email, password, note, id, userUid}) async {
-    var encryptedLabel = encryption.encryptPassword(getText(label) ? label : 'null', encrypter);
-    var encryptedUsername = encryption.encryptPassword(getText(username) ? username : 'null', encrypter);
-    var encryptedEmail = encryption.encryptPassword(getText(email) ? email : 'null', encrypter);
-    var encryptedPassword = encryption.encryptPassword(getText(password) ? password: 'null', encrypter);
-    var encryptedNote = encryption.encryptPassword(getText(note) ? note : 'null', encrypter);
+    var encryptedLabel =
+        encryption.encryptPassword(getText(label) ? label : 'null', encrypter);
+    var encryptedUsername = encryption.encryptPassword(
+        getText(username) ? username : 'null', encrypter);
+    var encryptedEmail =
+        encryption.encryptPassword(getText(email) ? email : 'null', encrypter);
+    var encryptedPassword = encryption.encryptPassword(
+        getText(password) ? password : 'null', encrypter);
+    var encryptedNote =
+        encryption.encryptPassword(getText(note) ? note : 'null', encrypter);
     var data = {
       'password_item': {
         'id': id,
@@ -138,9 +167,11 @@ class PasswordManager {
         'note': encryptedNote,
       }
     };
-    await _firestore.doc('${userUid}pass/${userUid+id.toString()}').update(data);
+    await _firestore
+        .doc('${userUid}pass/${userUid + id.toString()}')
+        .update(data);
   }
-  
+
   getText(text) {
     if (text == '') {
       return false;

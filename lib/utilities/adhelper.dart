@@ -20,7 +20,7 @@ class AdHelper {
   loadRewardAd(BuildContext context) {
     RewardedAd.load(
         adUnitId: rewardedAdUnitId,
-        request: AdRequest(keywords: ['games']),
+        request: const AdRequest(keywords: ['games']),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (ad) {
             _rewardedAd = ad;
@@ -37,7 +37,7 @@ class AdHelper {
 
   showRewardedAd(BuildContext context) {
     _rewardedAd.show(
-      onUserEarnedReward: (RewardedAd ad, item) {},
+      onUserEarnedReward: (ad, item) {},
     );
     print('ad showed');
     _rewardedAd.fullScreenContentCallback = FullScreenContentCallback(

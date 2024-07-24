@@ -27,7 +27,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Register',
           style: kTextStyle,
         ),
@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
                 emailController,
                 passwordController,
                 'Register',
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Future.delayed(Duration.zero, () async {
                       Navigator.pushReplacement(
@@ -87,9 +87,8 @@ class _RegisterState extends State<Register> {
                     email = emailController.text;
                     password = passwordController.text;
                     try {
-                      final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
+                      await _auth.createUserWithEmailAndPassword(
+                          email: email, password: password);
 
                       setState(() {
                         showSpinner = false;

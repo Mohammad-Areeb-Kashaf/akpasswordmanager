@@ -17,7 +17,8 @@ class AddPassword extends StatefulWidget {
   final username;
   final note;
   final id;
-  AddPassword({
+  const AddPassword({
+    Key? key,
     this.appBarText,
     this.userUid,
     this.label,
@@ -26,7 +27,7 @@ class AddPassword extends StatefulWidget {
     this.password,
     this.note,
     this.id,
-  });
+  }) : super(key: key);
 
   @override
   _AddPasswordState createState() => _AddPasswordState();
@@ -124,33 +125,45 @@ class _AddPasswordState extends State<AddPassword> {
                   fontSize: 20,
                 ),
               ),
-              SizedBox(height: 15,),
-              RaisedButton(
+              SizedBox(
+                height: 15,
+              ),
+              MaterialButton(
                 onPressed: () async {
                   if (addLabelController.text.isEmpty) {
-                      setState(() {
-                        errorMessage = 'Label should not be empty';
-                      });
+                    setState(() {
+                      errorMessage = 'Label should not be empty';
+                    });
                   } else if (addEmailController.text.isEmpty) {
-                      setState(() {
-                        errorMessage = 'Email should not be empty';
-                      });
+                    setState(() {
+                      errorMessage = 'Email should not be empty';
+                    });
                   } else {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      PasswordManager().setPassword(userUid, addLabelController.text, addUsernameController.text, addEmailController.text, addPasswordController.text, userEmail, addNoteController.text);
-                      setState(() {
-                        isLoading = false;
-                      });
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ShowRewardedAds()));
+                    setState(() {
+                      isLoading = true;
+                    });
+                    PasswordManager().setPassword(
+                        userUid,
+                        addLabelController.text,
+                        addUsernameController.text,
+                        addEmailController.text,
+                        addPasswordController.text,
+                        userEmail,
+                        addNoteController.text);
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShowRewardedAds()));
                   }
                 },
+                color: Colors.grey.shade800,
                 child: Text(
                   'Save',
-                  textScaleFactor: 2,
+                  style: TextStyle(fontSize: 24),
                 ),
-                color: Colors.grey.shade800,
               )
             ],
           ),

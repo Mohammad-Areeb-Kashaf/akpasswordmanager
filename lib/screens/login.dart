@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
                 emailController,
                 passwordController,
                 'Login',
-                FlatButton(
+                TextButton(
                   onPressed: () {
                     Future.delayed(Duration.zero, () {
                       Navigator.pushReplacement(

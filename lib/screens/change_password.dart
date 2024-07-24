@@ -66,7 +66,7 @@ class _ChangePasswordState extends State<ChangePassword> {
               SizedBox(
                 height: 15,
               ),
-              RaisedButton(
+              MaterialButton(
                 onPressed: () {
                   if (newPasswordController.text.length >= 6) {
                     if (newPasswordController.text ==
@@ -85,26 +85,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                           content: Text('Please check the passwords')));
                   }
                 },
+                color: Colors.grey.shade800,
                 child: Text(
                   'Change Password',
-                  textScaleFactor: 2,
+                  style: TextStyle(fontSize: 24),
                 ),
-                color: Colors.grey.shade800,
               ),
               SizedBox(
                 height: 30,
               ),
-              FlatButton(
-                  onPressed: () async {
-                    result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Login(
-                            loginForApp: false,
-                          ),
-                        ));
-                  },
-                  child: Text('authenticate now'))
+              TextButton(
+                onPressed: () async {
+                  result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login(
+                          loginForApp: false,
+                        ),
+                      ));
+                },
+                child: Text('authenticate now'),
+              )
             ],
           ),
         ),
@@ -124,26 +125,34 @@ class _ChangePasswordState extends State<ChangePassword> {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Text('Successfully changed password',),
+              content: Text(
+                'Successfully changed password',
+              ),
               backgroundColor: Colors.grey.shade700,
             ));
         }).catchError((error) {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("Password can't be changed" + error.toString()), backgroundColor: Colors.grey.shade700,));
+              content: Text("Password can't be changed$error"),
+              backgroundColor: Colors.grey.shade700,
+            ));
         });
       } else {
         ScaffoldMessenger.of(context)
           ..removeCurrentSnackBar()
-          ..showSnackBar(
-              SnackBar(content: Text('Seems like you have not authenticated'), backgroundColor: Colors.grey.shade700,));
+          ..showSnackBar(SnackBar(
+            content: Text('Seems like you have not authenticated'),
+            backgroundColor: Colors.grey.shade700,
+          ));
       }
     } catch (e) {
       ScaffoldMessenger.of(context)
         ..removeCurrentSnackBar()
         ..showSnackBar(SnackBar(
-            content: Text('Something went wrong please try again later'), backgroundColor: Colors.grey.shade700,));
+          content: Text('Something went wrong please try again later'),
+          backgroundColor: Colors.grey.shade700,
+        ));
     }
   }
 }
